@@ -21,4 +21,4 @@ ENV KC_DB_USERNAME=keycloak
 ENV KC_DB_PASSWORD=change_me
 ENV KC_HOSTNAME=localhost:8080
 
-ENTRYPOINT ["/opt/keycloak/bin/kc.sh", "start-dev"]
+ENTRYPOINT ["/opt/keycloak/bin/kc.sh"]
