@@ -2,7 +2,7 @@ FROM quay.io/keycloak/keycloak:latest as builder
 
 ENV KC_METRICS_ENABLED=true
 ENV KC_FEATURES=scripts
-ENV KC_DB=postgres
+ENV KC_DB=jdbc:postgresql://postgres/keycloak
 RUN /opt/keycloak/bin/kc.sh build
 
 FROM quay.io/keycloak/keycloak:latest
@@ -21,4 +21,4 @@ ENV KC_DB_USERNAME=keycloak
 ENV KC_DB_PASSWORD=change_me
 ENV KC_HOSTNAME=localhost:8080
 
-ENTRYPOINT ["/opt/keycloak/bin/kc.sh", "start"]
+ENTRYPOINT ["/opt/keycloak/bin/kc.sh", "start-dev"]
