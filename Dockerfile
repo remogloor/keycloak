@@ -20,4 +20,8 @@ ENV KC_DB_URL=postgres
 ENV KC_DB_USERNAME=keycloak
 ENV KC_DB_PASSWORD=change_me
 
+ENV KC_PROXY=edge
+ENV KC_HTTP_ENABLED=true
+ENV KC_HOSTNAME_STRICT=false
+
 ENTRYPOINT ["/opt/keycloak/bin/kc.sh"]
