@@ -1,7 +1,7 @@
 FROM quay.io/keycloak/keycloak:latest as builder
 
 ENV KC_METRICS_ENABLED=true
-ENV KC_FEATURES=scripts, token-exchange 
+ENV KC_FEATURES=scripts
 ENV KC_DB=postgres
 RUN /opt/keycloak/bin/kc.sh build
 
