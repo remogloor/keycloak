@@ -19,6 +19,5 @@ ENV KEYCLOAK_ADMIN_PASSWORD=change_me
 ENV KC_DB_URL=postgres
 ENV KC_DB_USERNAME=keycloak
 ENV KC_DB_PASSWORD=change_me
-ENV KC_HOSTNAME=localhost:8080
 
 ENTRYPOINT ["/opt/keycloak/bin/kc.sh"]
