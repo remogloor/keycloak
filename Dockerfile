@@ -2,7 +2,7 @@ FROM quay.io/keycloak/keycloak:latest as builder
 
 ENV KC_METRICS_ENABLED=true
 ENV KC_FEATURES=scripts
-ENV KC_DB=jdbc:postgresql://postgres/keycloak
+ENV KC_DB=postgres
 RUN /opt/keycloak/bin/kc.sh build
 
 FROM quay.io/keycloak/keycloak:latest
