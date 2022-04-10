@@ -5,15 +5,14 @@ ENV KC_METRICS_ENABLED=true
 ENV KC_FEATURES=scripts
 ENV KC_DB=postgres
 ENV KC_HTTP_RELATIVE_PATH=/auth
-RUN microdnf install zip
-RUN mkdir /tmpproviders
+RUN /bin/sh -c microdnf update -y && microdnf install -y zip && microdnf clean all && mkdir /tmpproviders
 COPY /providers/* /tmpproviders/
 RUN zip -r /opt/keycloak/providers/myproviders.jar /tmpproviders/*
 RUN /opt/keycloak/bin/kc.sh build --features=scripts
 
 FROM quay.io/keycloak/keycloak:latest
 USER root
-RUN microdnf install vim
+RUN /bin/sh -c microdnf update -y && microdnf install -y vim && microdnf clean all
 USER 1000
 
 COPY --from=builder /opt/keycloak/lib/quarkus/ /opt/keycloak/lib/quarkus/
