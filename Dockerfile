@@ -4,7 +4,7 @@ ENV KC_METRICS_ENABLED=true
 ENV KC_FEATURES=scripts
 ENV KC_DB=postgres
 ENV KC_HTTP_RELATIVE_PATH=/auth
-RUN /opt/keycloak/bin/kc.sh build
+RUN /opt/keycloak/bin/kc.sh build --features=scripts
 
 FROM quay.io/keycloak/keycloak:latest
 COPY --from=builder /opt/keycloak/lib/quarkus/ /opt/keycloak/lib/quarkus/
@@ -20,6 +20,7 @@ ENV KEYCLOAK_ADMIN_PASSWORD=change_me
 ENV KC_DB_URL=postgres
 ENV KC_DB_USERNAME=keycloak
 ENV KC_DB_PASSWORD=change_me
+ENV KC_FEATURES=scripts
 
 ENV KC_PROXY=edge
 ENV KC_HTTP_ENABLED=true
