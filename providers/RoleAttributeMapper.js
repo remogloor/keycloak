@@ -1,14 +1,10 @@
 var attributes = {};
 
-function processGroup(groupModel) {
+user.getGroups().forEach(function(groupModel) {
     var map = groupModel.getAttributes();
     map.forEach(function(key, value){
         attributes[key] = value;
     });
-    
-    groupModel.getSubGroups().forEach(function(subGroupModel) {
-        processGroup(subGroupModel);
-    }
     
     groupModel.getRoleMappings().forEach(function(roleModel) {
         var map = roleModel.getAttributes();
@@ -16,10 +12,6 @@ function processGroup(groupModel) {
             attributes[key] = value;
         }); 
     });
-}
-
-user.getGroups().forEach(function(groupModel) {
-    processGroup(groupModel);
 });
 
 user.getRoleMappings().forEach(function(roleModel) {
