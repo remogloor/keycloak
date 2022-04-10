@@ -6,8 +6,8 @@ ENV KC_FEATURES=scripts
 ENV KC_DB=postgres
 ENV KC_HTTP_RELATIVE_PATH=/auth
 RUN microdnf install zip
-RUN MKDIR /tmpproviders
-COPY /providers /tmpproviders
+RUN mkdir /tmpproviders
+COPY /providers/* /tmpproviders/
 RUN zip -r /tmpproviders/* /opt/keycloak/providers/myproviders.jar
 RUN /opt/keycloak/bin/kc.sh build --features=scripts
 
