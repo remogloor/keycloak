@@ -3,6 +3,7 @@ FROM quay.io/keycloak/keycloak:latest as builder
 ENV KC_METRICS_ENABLED=true
 ENV KC_FEATURES=scripts
 ENV KC_DB=postgres
+ENV KC_HTTP_RELATIVE_PATH=/auth
 RUN /opt/keycloak/bin/kc.sh build
 
 FROM quay.io/keycloak/keycloak:latest
