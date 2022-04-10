@@ -1,0 +1,9 @@
+{
+    "mappers": [
+        {
+            "name": "Role Attribute Mapper",
+            "fileName": "RoleAttributeMapper.js",
+            "description": "Maps all attributes of the users roles"
+        }
+    ]
+}
