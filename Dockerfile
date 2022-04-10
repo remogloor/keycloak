@@ -1,5 +1,6 @@
 FROM quay.io/keycloak/keycloak:latest as builder
 
+USER root
 ENV KC_METRICS_ENABLED=true
 ENV KC_FEATURES=scripts
 ENV KC_DB=postgres
