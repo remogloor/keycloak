@@ -9,7 +9,7 @@ RUN microdnf update -y
 RUN microdnf install -y zip
 RUN microdnf clean all
 RUN mkdir /tmpproviders
-COPY /providers/* /tmpproviders/
+COPY /providers/ /tmpproviders/
 RUN zip -r /opt/keycloak/providers/myproviders.jar /tmpproviders/*
 RUN /opt/keycloak/bin/kc.sh build --features=scripts
 
@@ -24,7 +24,7 @@ USER 1000
 COPY --from=builder /opt/keycloak/lib/quarkus/ /opt/keycloak/lib/quarkus/
 WORKDIR /opt/keycloak
 
-COPY /providers/* /tmpproviders/
+COPY /providers/ /tmpproviders/
 RUN zip -r /opt/keycloak/providers/myproviders.jar /tmpproviders/*
 
 # for demonstration purposes only, please make sure to use proper certificates in production instead
