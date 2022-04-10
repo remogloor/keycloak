@@ -1,5 +1,10 @@
-var roles = {}
-for each (var role in user.getRoleMappings()) {
-    roles[role.name] = role.getAttributes();
-}
-token.setOtherClaims('roles', roles);
+var attributes = {};
+
+user.getRoleMappings().forEach(function(roleModel) {
+    var map = roleModel.getAttributes();
+    map.forEach(function(key, value){
+        attributes[key] = value;
+    }); 
+});
+
+exports = attributes;
