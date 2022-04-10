@@ -8,10 +8,14 @@ ENV KC_HTTP_RELATIVE_PATH=/auth
 RUN microdnf install zip
 RUN mkdir /tmpproviders
 COPY /providers/* /tmpproviders/
-RUN zip -r /tmpproviders/* /opt/keycloak/providers/myproviders.jar
+RUN zip -r /opt/keycloak/providers/myproviders.jar /tmpproviders/*
 RUN /opt/keycloak/bin/kc.sh build --features=scripts
 
 FROM quay.io/keycloak/keycloak:latest
+USER root
+RUN microdnf install vim
+USER 1000
+
 COPY --from=builder /opt/keycloak/lib/quarkus/ /opt/keycloak/lib/quarkus/
 WORKDIR /opt/keycloak
 
