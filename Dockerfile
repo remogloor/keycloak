@@ -17,15 +17,15 @@ RUN /opt/keycloak/bin/kc.sh build --features=scripts
 FROM quay.io/keycloak/keycloak:latest
 USER root
 RUN microdnf update -y
-RUN microdnf install -y zip
+#RUN microdnf install -y zip
 RUN microdnf install -y vim
 RUN microdnf clean all
 USER 1000
 
 COPY --from=builder /opt/keycloak/lib/quarkus/ /opt/keycloak/lib/quarkus/
-COPY /providers/ /tmpproviders/
-WORKDIR /tmpproviders
-RUN zip -r /opt/keycloak/providers/myproviders.jar *
+#COPY /providers/ /tmpproviders/
+#WORKDIR /tmpproviders
+#RUN zip -r /opt/keycloak/providers/myproviders.jar *
 
 WORKDIR /opt/keycloak
 
