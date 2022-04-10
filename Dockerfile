@@ -25,7 +25,7 @@ USER 1000
 COPY --from=builder /opt/keycloak/lib/quarkus/ /opt/keycloak/lib/quarkus/
 COPY /providers/ /tmpproviders/
 WORKDIR /tmpproviders
-RUN zip -r /opt/keycloak/providers/myproviders.jar /tmpproviders/*
+RUN zip -r /opt/keycloak/providers/myproviders.jar *
 
 WORKDIR /opt/keycloak
 
