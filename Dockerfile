@@ -41,6 +41,12 @@ COPY /providers/ /tmpproviders/
 WORKDIR /tmpproviders
 RUN zip -r /opt/keycloak/providers/myproviders.jar *
 
+RUN mkdir -p $PROVIDERS_TMP
+ADD $MAVEN_CENTRAL_URL/ru/playa/keycloak/keycloak-russian-providers/$PROVIDERS_VERSION/keycloak-russian-providers-$PROVIDERS_VERSION.jar $PROVIDERS_TMP
+RUN cp $PROVIDERS_TMP/keycloak-russian-providers-$PROVIDERS_VERSION.jar $JBOSS_HOME/providers
+RUN chmod -R a+r $JBOSS_HOME
+RUN rm -rf $PROVIDERS_TMP
+
 WORKDIR /opt/keycloak
 
 
