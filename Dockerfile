@@ -34,7 +34,6 @@ RUN microdnf update -y
 RUN microdnf install -y zip
 RUN microdnf install -y vim
 RUN microdnf clean all
-USER 1000
 
 COPY --from=builder /opt/keycloak/lib/quarkus/ /opt/keycloak/lib/quarkus/
 COPY /providers/ /tmpproviders/
@@ -50,6 +49,8 @@ ADD $MAVEN_CENTRAL_URL/ru/playa/keycloak/keycloak-russian-providers/$PROVIDERS_V
 RUN cp $PROVIDERS_TMP/keycloak-russian-providers-$PROVIDERS_VERSION.jar $JBOSS_HOME/providers
 RUN chmod -R a+r $JBOSS_HOME
 RUN rm -rf $PROVIDERS_TMP
+
+USER 1000
 
 WORKDIR /opt/keycloak
 
