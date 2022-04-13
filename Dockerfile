@@ -22,7 +22,9 @@ RUN zip -r /opt/keycloak/providers/myproviders.jar *
 
 RUN mkdir -p $PROVIDERS_TMP
 ADD $MAVEN_CENTRAL_URL/ru/playa/keycloak/keycloak-russian-providers/$PROVIDERS_VERSION/keycloak-russian-providers-$PROVIDERS_VERSION.jar $PROVIDERS_TMP
+ADD https://github.com/wadahiro/keycloak-discord/releases/download/v0.4.0/keycloak-discord-0.4.0.jar $PROVIDERS_TMP
 RUN cp $PROVIDERS_TMP/keycloak-russian-providers-$PROVIDERS_VERSION.jar $JBOSS_HOME/providers
+RUN cp $PROVIDERS_TMP/keycloak-discord-0.4.0.jar $JBOSS_HOME/providers
 RUN chmod -R a+r $JBOSS_HOME
 RUN rm -rf $PROVIDERS_TMP
 
@@ -33,6 +35,7 @@ USER root
 RUN microdnf update -y
 RUN microdnf install -y zip
 RUN microdnf install -y vim
+RUN microdnf install -y wget
 RUN microdnf clean all
 
 COPY --from=builder /opt/keycloak/lib/quarkus/ /opt/keycloak/lib/quarkus/
@@ -46,7 +49,9 @@ ENV PROVIDERS_TMP /tmp/keycloak-providers
 ENV MAVEN_CENTRAL_URL https://repo1.maven.org/maven2
 RUN mkdir -p $PROVIDERS_TMP
 ADD $MAVEN_CENTRAL_URL/ru/playa/keycloak/keycloak-russian-providers/$PROVIDERS_VERSION/keycloak-russian-providers-$PROVIDERS_VERSION.jar $PROVIDERS_TMP
+ADD https://github.com/wadahiro/keycloak-discord/releases/download/v0.4.0/keycloak-discord-0.4.0.jar $PROVIDERS_TMP
 RUN cp $PROVIDERS_TMP/keycloak-russian-providers-$PROVIDERS_VERSION.jar $JBOSS_HOME/providers
+RUN cp $PROVIDERS_TMP/keycloak-discord-0.4.0.jar $JBOSS_HOME/providers
 RUN chmod -R a+r $JBOSS_HOME
 RUN rm -rf $PROVIDERS_TMP
 
