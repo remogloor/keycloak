@@ -4,6 +4,11 @@
             "name": "Role Attribute Mapper",
             "fileName": "RoleAttributeMapper.js",
             "description": "Maps all attributes of the users roles"
+        },
+        {
+            "name": "All Roles Mapper",
+            "fileName": "AllRolesMapper.js",
+            "description": "Maps all role names assigned to a user"
         }
     ]
 }
