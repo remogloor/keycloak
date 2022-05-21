@@ -1,4 +1,4 @@
-FROM quay.io/keycloak/keycloak:latest as builder
+FROM quay.io/keycloak/keycloak:17.0.0 as builder
 
 USER root
 ENV KC_METRICS_ENABLED=true
