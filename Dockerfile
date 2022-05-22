@@ -1,4 +1,4 @@
-FROM quay.io/keycloak/keycloak:17.0.0 as builder
+FROM quay.io/keycloak/keycloak:17.0 as builder
 
 USER root
 ENV KC_METRICS_ENABLED=true
@@ -30,7 +30,7 @@ RUN rm -rf $PROVIDERS_TMP
 
 RUN /opt/keycloak/bin/kc.sh build --features=scripts
 
-FROM quay.io/keycloak/keycloak:latest
+FROM quay.io/keycloak/keycloak:17.0
 USER root
 RUN microdnf update -y
 RUN microdnf install -y zip
