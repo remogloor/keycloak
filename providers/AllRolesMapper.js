@@ -1,8 +1,8 @@
-var roles = new Set();
+var roles = [];
 
 function processRole(roleModel, roleSet) {
     var name = roleModel.getName();
-    if (name.startsWith("HW_") roleSet.add(name);
+    if (name.startsWith("HW_") roleSet.push(name);
     
     if (roleModel.isComposite()) {
         roleModel.getComposites().forEach(function(roleModel) {
