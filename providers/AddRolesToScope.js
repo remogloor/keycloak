@@ -25,7 +25,7 @@ if(token instanceof Java.type("org.keycloak.representations.AccessToken")){
   });
 
   if (roles.length > 0) {
-   token.setScope(token.getScope() + " " + roles.join(" ");
+   token.setScope(token.getScope() + " " + roles.join(" "));
   }    
 }
 
