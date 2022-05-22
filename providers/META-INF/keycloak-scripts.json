@@ -9,6 +9,11 @@
             "name": "All Roles Mapper",
             "fileName": "AllRolesMapper.js",
             "description": "Maps all role names assigned to a user"
+        },
+        {
+            "name": "Adds all roles to scope",
+            "fileName": "AddRolesToScope.js",
+            "description": "Maps all role names assigned to a user to the access token scope"
         }
     ]
 }
