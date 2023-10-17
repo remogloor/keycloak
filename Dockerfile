@@ -7,7 +7,7 @@ ENV KC_DB=postgres
 ENV KC_HTTP_RELATIVE_PATH=/auth
 
 ENV JBOSS_HOME /opt/keycloak
-ENV PROVIDERS_VERSION 1.0.40
+ENV PROVIDERS_VERSION 22.0.3.rsp
 ENV PROVIDERS_TMP /tmp/keycloak-providers
 ENV MAVEN_CENTRAL_URL https://repo1.maven.org/maven2
 
@@ -44,7 +44,7 @@ WORKDIR /tmpproviders
 RUN zip -r /opt/keycloak/providers/myproviders.jar *
 
 ENV JBOSS_HOME /opt/keycloak
-ENV PROVIDERS_VERSION 1.0.40
+ENV PROVIDERS_VERSION 22.0.3.rsp
 ENV PROVIDERS_TMP /tmp/keycloak-providers
 ENV MAVEN_CENTRAL_URL https://repo1.maven.org/maven2
 RUN mkdir -p $PROVIDERS_TMP
