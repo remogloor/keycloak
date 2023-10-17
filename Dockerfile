@@ -10,6 +10,10 @@ COPY /providers/ /tmpproviders/
 WORKDIR /tmpproviders
 RUN zip -r /result/myproviders.jar *
 
+FROM registry.access.redhat.com/ubi9 AS packageprovider
+RUN mkdir -p /mnt/rootfs
+RUN dnf install --installroot /mnt/rootfs vim wget --releasever 9 --setopt install_weak_deps=false --nodocs -y; dnf --installroot /mnt/rootfs clean all
+
 FROM quay.io/keycloak/keycloak:22.0 as builder
 
 USER root
@@ -36,6 +40,7 @@ RUN rm -rf $PROVIDERS_TMP
 RUN /opt/keycloak/bin/kc.sh build --features=scripts
 
 FROM quay.io/keycloak/keycloak:22.0
+COPY --from=packageprovider /mnt/rootfs /
 USER root
 
 COPY --from=builder /opt/keycloak/lib/quarkus/ /opt/keycloak/lib/quarkus/
