@@ -1,3 +1,15 @@
+FROM registry.access.redhat.com/ubi9-minimal AS zipper
+
+RUN microdnf update -y
+RUN microdnf install -y zip
+RUN microdnf clean all
+RUN mkdir /tmpproviders
+RUN mkdir /result
+
+COPY /providers/ /tmpproviders/
+WORKDIR /tmpproviders
+RUN zip -r /result/myproviders.jar *
+
 FROM quay.io/keycloak/keycloak:22.0 as builder
 
 USER root
@@ -11,14 +23,7 @@ ENV PROVIDERS_VERSION 22.0.3.rsp
 ENV PROVIDERS_TMP /tmp/keycloak-providers
 ENV MAVEN_CENTRAL_URL https://repo1.maven.org/maven2
 
-RUN microdnf update -y
-RUN microdnf install -y zip
-RUN microdnf clean all
-RUN mkdir /tmpproviders
-
-COPY /providers/ /tmpproviders/
-WORKDIR /tmpproviders
-RUN zip -r /opt/keycloak/providers/myproviders.jar *
+COPY --from=zipper /result/ /opt/keycloak/providers/
 
 RUN mkdir -p $PROVIDERS_TMP
 ADD $MAVEN_CENTRAL_URL/ru/playa/keycloak/keycloak-russian-providers/$PROVIDERS_VERSION/keycloak-russian-providers-$PROVIDERS_VERSION.jar $PROVIDERS_TMP
@@ -32,16 +37,9 @@ RUN /opt/keycloak/bin/kc.sh build --features=scripts
 
 FROM quay.io/keycloak/keycloak:22.0
 USER root
-RUN microdnf update -y
-RUN microdnf install -y zip
-RUN microdnf install -y vim
-RUN microdnf install -y wget
-RUN microdnf clean all
 
 COPY --from=builder /opt/keycloak/lib/quarkus/ /opt/keycloak/lib/quarkus/
-COPY /providers/ /tmpproviders/
-WORKDIR /tmpproviders
-RUN zip -r /opt/keycloak/providers/myproviders.jar *
+COPY --from=zipper /result/ /opt/keycloak/providers/
 
 ENV JBOSS_HOME /opt/keycloak
 ENV PROVIDERS_VERSION 22.0.3.rsp
@@ -58,7 +56,6 @@ RUN rm -rf $PROVIDERS_TMP
 USER 1000
 
 WORKDIR /opt/keycloak
-
 
 # for demonstration purposes only, please make sure to use proper certificates in production instead
 RUN keytool -genkeypair -storepass password -storetype PKCS12 -keyalg RSA -keysize 2048 -dname "CN=keycloak" -alias server -ext "SAN:c=DNS:localhost,IP:127.0.0.1" -keystore conf/server.keystore
