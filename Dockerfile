@@ -36,12 +36,16 @@ RUN microdnf update -y
 RUN microdnf install -y zip
 RUN microdnf install -y vim
 RUN microdnf install -y wget
+RUN microdnf install -y iputils 
 RUN microdnf clean all
 
 COPY --from=builder /opt/keycloak/lib/quarkus/ /opt/keycloak/lib/quarkus/
 COPY /providers/ /tmpproviders/
 WORKDIR /tmpproviders
 RUN zip -r /opt/keycloak/providers/myproviders.jar *
+
+COPY cache-ispn-jdbc-ping.xml /opt/keycloak/conf/cache-ispn-jdbc-ping.xml
+ENV KC_CACHE_CONFIG_FILE=cache-ispn-jdbc-ping.xml
 
 ENV JBOSS_HOME /opt/keycloak
 ENV PROVIDERS_VERSION 1.0.40
