@@ -1,4 +1,4 @@
-FROM quay.io/keycloak/keycloak:18.0 as builder
+FROM quay.io/keycloak/keycloak:19.0 as builder
 
 USER root
 ENV KC_METRICS_ENABLED=true
@@ -25,7 +25,7 @@ RUN zip -r /opt/keycloak/providers/myproviders.jar *
 #ADD https://github.com/wadahiro/keycloak-discord/releases/download/v0.4.0/keycloak-discord-0.4.0.jar $PROVIDERS_TMP
 #RUN cp $PROVIDERS_TMP/keycloak-russian-providers-$PROVIDERS_VERSION.jar $JBOSS_HOME/providers
 #RUN cp $PROVIDERS_TMP/keycloak-discord-0.4.0.jar $JBOSS_HOME/providers
-#RUN chmod -R a+r $JBOSS_HOME
+RUN chmod -R a+r $JBOSS_HOME
 #RUN rm -rf $PROVIDERS_TMP
 
 RUN /opt/keycloak/bin/kc.sh build --features=scripts
@@ -57,7 +57,7 @@ ENV MAVEN_CENTRAL_URL https://repo1.maven.org/maven2
 #ADD https://github.com/wadahiro/keycloak-discord/releases/download/v0.4.0/keycloak-discord-0.4.0.jar $PROVIDERS_TMP
 #RUN cp $PROVIDERS_TMP/keycloak-russian-providers-$PROVIDERS_VERSION.jar $JBOSS_HOME/providers
 #RUN cp $PROVIDERS_TMP/keycloak-discord-0.4.0.jar $JBOSS_HOME/providers
-#RUN chmod -R a+r $JBOSS_HOME
+RUN chmod -R a+r $JBOSS_HOME
 #RUN rm -rf $PROVIDERS_TMP
 
 USER 1000
