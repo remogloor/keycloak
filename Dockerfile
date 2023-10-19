@@ -20,13 +20,13 @@ COPY /providers/ /tmpproviders/
 WORKDIR /tmpproviders
 RUN zip -r /opt/keycloak/providers/myproviders.jar *
 
-#RUN mkdir -p $PROVIDERS_TMP
-#ADD $MAVEN_CENTRAL_URL/ru/playa/keycloak/keycloak-russian-providers/$PROVIDERS_VERSION/keycloak-russian-providers-$PROVIDERS_VERSION.jar $PROVIDERS_TMP
-#ADD https://github.com/wadahiro/keycloak-discord/releases/download/v0.4.0/keycloak-discord-0.4.0.jar $PROVIDERS_TMP
-#RUN cp $PROVIDERS_TMP/keycloak-russian-providers-$PROVIDERS_VERSION.jar $JBOSS_HOME/providers
-#RUN cp $PROVIDERS_TMP/keycloak-discord-0.4.0.jar $JBOSS_HOME/providers
+RUN mkdir -p $PROVIDERS_TMP
+ADD $MAVEN_CENTRAL_URL/ru/playa/keycloak/keycloak-russian-providers/$PROVIDERS_VERSION/keycloak-russian-providers-$PROVIDERS_VERSION.jar $PROVIDERS_TMP
+ADD https://github.com/wadahiro/keycloak-discord/releases/download/v0.4.0/keycloak-discord-0.4.0.jar $PROVIDERS_TMP
+RUN cp $PROVIDERS_TMP/keycloak-russian-providers-$PROVIDERS_VERSION.jar $JBOSS_HOME/providers
+RUN cp $PROVIDERS_TMP/keycloak-discord-0.4.0.jar $JBOSS_HOME/providers
 RUN chmod -R a+r $JBOSS_HOME
-#RUN rm -rf $PROVIDERS_TMP
+RUN rm -rf $PROVIDERS_TMP
 
 RUN /opt/keycloak/bin/kc.sh build --features=scripts
 
@@ -52,13 +52,13 @@ ENV PROVIDERS_VERSION 1.0.40
 ENV PROVIDERS_TMP /tmp/keycloak-providers
 ENV MAVEN_CENTRAL_URL https://repo1.maven.org/maven2
 
-#RUN mkdir -p $PROVIDERS_TMP
-#ADD $MAVEN_CENTRAL_URL/ru/playa/keycloak/keycloak-russian-providers/$PROVIDERS_VERSION/keycloak-russian-providers-$PROVIDERS_VERSION.jar $PROVIDERS_TMP
-#ADD https://github.com/wadahiro/keycloak-discord/releases/download/v0.4.0/keycloak-discord-0.4.0.jar $PROVIDERS_TMP
-#RUN cp $PROVIDERS_TMP/keycloak-russian-providers-$PROVIDERS_VERSION.jar $JBOSS_HOME/providers
-#RUN cp $PROVIDERS_TMP/keycloak-discord-0.4.0.jar $JBOSS_HOME/providers
+RUN mkdir -p $PROVIDERS_TMP
+ADD $MAVEN_CENTRAL_URL/ru/playa/keycloak/keycloak-russian-providers/$PROVIDERS_VERSION/keycloak-russian-providers-$PROVIDERS_VERSION.jar $PROVIDERS_TMP
+ADD https://github.com/wadahiro/keycloak-discord/releases/download/v0.4.0/keycloak-discord-0.4.0.jar $PROVIDERS_TMP
+RUN cp $PROVIDERS_TMP/keycloak-russian-providers-$PROVIDERS_VERSION.jar $JBOSS_HOME/providers
+RUN cp $PROVIDERS_TMP/keycloak-discord-0.4.0.jar $JBOSS_HOME/providers
 RUN chmod -R a+r $JBOSS_HOME
-#RUN rm -rf $PROVIDERS_TMP
+RUN rm -rf $PROVIDERS_TMP
 
 USER 1000
 
