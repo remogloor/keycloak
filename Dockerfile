@@ -41,7 +41,7 @@ RUN rm -rf $PROVIDERS_TMP
 #ENV KC_CACHE_CONFIG_FILE=cache-ispn-jdbc-ping.xml
 #RUN /opt/keycloak/bin/kc.sh build --features=scripts --cache-config-file=cache-ispn-jdbc-ping.xml
 
-RUN /opt/keycloak/bin/kc.sh build --features=scripts
+RUN /opt/keycloak/bin/kc.sh build --features=scripts --cache-stack=tcp
 
 FROM quay.io/keycloak/keycloak:22.0
 COPY --from=packageprovider /mnt/rootfs /
