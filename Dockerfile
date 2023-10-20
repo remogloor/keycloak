@@ -37,10 +37,11 @@ RUN cp $PROVIDERS_TMP/keycloak-discord-0.5.0.jar $JBOSS_HOME/providers
 RUN chmod -R a+r $JBOSS_HOME
 RUN rm -rf $PROVIDERS_TMP
 
-COPY cache-ispn-jdbc-ping.xml /opt/keycloak/conf/cache-ispn-jdbc-ping.xml
-ENV KC_CACHE_CONFIG_FILE=cache-ispn-jdbc-ping.xml
+#COPY cache-ispn-jdbc-ping.xml /opt/keycloak/conf/cache-ispn-jdbc-ping.xml
+#ENV KC_CACHE_CONFIG_FILE=cache-ispn-jdbc-ping.xml
+#RUN /opt/keycloak/bin/kc.sh build --features=scripts --cache-config-file=cache-ispn-jdbc-ping.xml
 
-RUN /opt/keycloak/bin/kc.sh build --features=scripts --cache-config-file=cache-ispn-jdbc-ping.xml
+RUN /opt/keycloak/bin/kc.sh build --features=scripts
 
 FROM quay.io/keycloak/keycloak:22.0
 COPY --from=packageprovider /mnt/rootfs /
@@ -61,8 +62,8 @@ RUN cp $PROVIDERS_TMP/keycloak-discord-0.5.0.jar $JBOSS_HOME/providers
 RUN chmod -R a+r $JBOSS_HOME
 RUN rm -rf $PROVIDERS_TMP
 
-COPY cache-ispn-jdbc-ping.xml /opt/keycloak/conf/cache-ispn-jdbc-ping.xml
-ENV KC_CACHE_CONFIG_FILE=cache-ispn-jdbc-ping.xml
+#COPY cache-ispn-jdbc-ping.xml /opt/keycloak/conf/cache-ispn-jdbc-ping.xml
+#ENV KC_CACHE_CONFIG_FILE=cache-ispn-jdbc-ping.xml
 
 USER 1000
 
