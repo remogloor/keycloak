@@ -21,6 +21,12 @@
         xsi:schemaLocation="urn:infinispan:config:14.0 http://www.infinispan.org/schemas/infinispan-config-14.0.xsd"
         xmlns="urn:infinispan:config:14.0">
     <jgroups>
+        <stack name="tcp_ping">
+            <TCP external_addr="${env.JGROUPS_DISCOVERY_EXTERNAL_IP:127.0.0.1}" />
+            <TCPPING initial_hosts="${env.JGROUPS_DISCOVERY_INITIAL_HOSTS}" 
+                     port_range="0"/>
+        </stack>
+      <!--
         <stack name="mysql-jdbc-ping-tcp" extends="tcp">
             <TCP external_addr="${env.JGROUPS_DISCOVERY_EXTERNAL_IP:127.0.0.1}" />
             <JDBC_PING connection_driver="com.mysql.jdbc.Driver"
@@ -76,7 +82,7 @@
                        remove_all_data_on_view_change="true"
                        stack.combine="REPLACE"
                        stack.position="MPING" />
-        </stack>
+        </stack>-->
     </jgroups>
 
     <cache-container name="keycloak">
