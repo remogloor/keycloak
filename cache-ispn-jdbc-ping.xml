@@ -24,7 +24,9 @@
         <stack name="tcp_ping">
             <TCP external_addr="${env.JGROUPS_DISCOVERY_EXTERNAL_IP:127.0.0.1}" />
             <TCPPING initial_hosts="${env.JGROUPS_DISCOVERY_INITIAL_HOSTS}" 
-                     port_range="0"/>
+                     port_range="0"
+                     stack.combine="REPLACE"
+                     stack.position="MPING"/>
         </stack>
       <!--
         <stack name="mysql-jdbc-ping-tcp" extends="tcp">
