@@ -22,8 +22,8 @@
         xmlns="urn:infinispan:config:14.0">
     <jgroups>
         <stack name="tcpping" extends="tcp">
-            <TCP external_addr="${env.JGROUPS_DISCOVERY_EXTERNAL_IP:127.0.0.1}" bind_port="7600" />
-            <TCPPING initial_hosts="10.100.0.11[7600],10.100.0.12[7600]10.100.0.13[7600]" 
+            <TCP external_addr="${env.JGROUPS_DISCOVERY_EXTERNAL_IP:127.0.0.1}" bind_port="7600" bind_addr="${env.JGROUPS_DISCOVERY_BIND_ADDR}"/>
+            <TCPPING initial_hosts="${env.JGROUPS_DISCOVERY_INITIAL_HOSTS}" 
                      port_range="0"
                      stack.combine="REPLACE"
                      stack.position="MPING"/>
