@@ -27,6 +27,14 @@
                      port_range="0"
                      stack.combine="REPLACE"
                      stack.position="MPING"/>
+            <SYM_ENCRYPT keystore_name="${env.JGROUPS_KEYSTORE}"
+                   keystore_type="JCEKS"
+                   store_password="${env.JGROUPS_KEYSTORE_PASSWD}"
+                   key_password="${env.JGROUPS_KEY_PASSWD}"
+                   alias="${env.JGROUPS_KEY_ALIAS}"
+                   stack.combine="INSERT_AFTER"
+                   stack.position="VERIFY_SUSPECT2"/>
+          JCEKS
         </stack>
     </jgroups>
 
