@@ -21,13 +21,17 @@
         xsi:schemaLocation="urn:infinispan:config:14.0 http://www.infinispan.org/schemas/infinispan-config-14.0.xsd"
         xmlns="urn:infinispan:config:14.0">
     <jgroups>
-        <stack name="ping" extends="udp">
-            <UDP bind_addr="${env.JGROUPS_DISCOVERY_BIND_ADDR}"/>
+        <stack name="mping" extends="udp">
+            <TCP external_addr="${env.JGROUPS_DISCOVERY_EXTERNAL_IP:127.0.0.1}" bind_port="7600" bind_addr="${env.JGROUPS_DISCOVERY_BIND_ADDR}"/>
+            <MPING mcast_addr="${env.JGROUPS_DISCOVERY_MCAST_ADDR:239.6.7.8}"
+                   mcast_port="${env.JGROUPS_DISCOVERY_MCAST_PORT:46655}"
+                   num_discovery_runs="3"
+                   ip_ttl="${env.JGROUPS_DISCOVERY_MCAST_UDP_IP_TTL:2}"/>
         </stack>
     </jgroups>
 
     <cache-container name="keycloak">
-        <transport lock-timeout="60000" stack="ping"/>
+        <transport lock-timeout="60000" stack="mping"/>
         <local-cache name="realms">
             <encoding>
                 <key media-type="application/x-java-object"/>
