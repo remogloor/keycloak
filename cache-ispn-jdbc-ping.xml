@@ -34,7 +34,6 @@
                    alias="${env.JGROUPS_KEY_ALIAS}"
                    stack.combine="INSERT_AFTER"
                    stack.position="VERIFY_SUSPECT2"/>
-          JCEKS
         </stack>
     </jgroups>
 
