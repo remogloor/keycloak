@@ -26,7 +26,9 @@
             <MPING mcast_addr="${env.JGROUPS_DISCOVERY_MCAST_ADDR:239.6.7.8}"
                    mcast_port="${env.JGROUPS_DISCOVERY_MCAST_PORT:46655}"
                    num_discovery_runs="3"
-                   ip_ttl="${env.JGROUPS_DISCOVERY_MCAST_UDP_IP_TTL:2}"/>
+                   ip_ttl="${env.JGROUPS_DISCOVERY_MCAST_UDP_IP_TTL:2}"
+                   stack.combine="REPLACE"
+                   stack.position="MPING"/>
         </stack>
     </jgroups>
 
