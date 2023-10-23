@@ -12,7 +12,7 @@ RUN zip -r /result/myproviders.jar *
 
 FROM registry.access.redhat.com/ubi9 AS packageprovider
 RUN mkdir -p /mnt/rootfs
-RUN dnf install --installroot /mnt/rootfs vim wget iputils curl nmap-ncat --releasever 9 --setopt install_weak_deps=false --nodocs -y; dnf --installroot /mnt/rootfs clean all
+RUN dnf install --installroot /mnt/rootfs vim wget iputils curl nmap-ncat net-tools --releasever 9 --setopt install_weak_deps=false --nodocs -y; dnf --installroot /mnt/rootfs clean all
 
 FROM quay.io/keycloak/keycloak:22.0 as builder
 
