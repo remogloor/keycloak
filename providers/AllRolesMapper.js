@@ -5,7 +5,7 @@ function processRole(roleModel, roleSet) {
     if (name.startsWith("HW_")) roleSet.push(name);
     
     if (roleModel.isComposite()) {
-        roleModel.getComposites().forEach(function(roleModel) {
+        roleModel.getCompositesStream().forEach(function(roleModel) {
             roleSet = processRole(roleModel, roleSet);
         });
     }
@@ -13,13 +13,13 @@ function processRole(roleModel, roleSet) {
     return roleSet;
 }
 
-user.getGroups().forEach(function(groupModel) {    
-    groupModel.getRoleMappings().forEach(function(roleModel) {
+user.getGroupsStream().forEach(function(groupModel) {    
+    groupModel.getRoleMappingsStream().forEach(function(roleModel) {
         roles = processRole(roleModel, roles);
     });
 });
 
-user.getRoleMappings().forEach(function(roleModel) {
+user.getRoleMappingsStream().forEach(function(roleModel) {
     roles = processRole(roleModel, roles);
 });
 
