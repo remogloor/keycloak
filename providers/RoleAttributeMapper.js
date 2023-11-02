@@ -7,7 +7,7 @@ function processRole(roleModel, attr) {
     });
     
     if (roleModel.isComposite()) {
-        roleModel.getComposites().forEach(function(roleModel) {
+        roleModel.getCompositesStream().forEach(function(roleModel) {
             attr = processRole(roleModel, attr);
         });
     }
@@ -15,18 +15,18 @@ function processRole(roleModel, attr) {
     return attr;
 }
 
-user.getGroups().forEach(function(groupModel) {
+user.getGroupsStream().forEach(function(groupModel) {
     var map = groupModel.getAttributes();
     map.forEach(function(key, value){
         attributes[key] = value;
     });
     
-    groupModel.getRoleMappings().forEach(function(roleModel) {
+    groupModel.getRoleMappingsStream().forEach(function(roleModel) {
         attributes = processRole(roleModel, attributes);
     });
 });
 
-user.getRoleMappings().forEach(function(roleModel) {
+user.getRoleMappingsStream().forEach(function(roleModel) {
     attributes = processRole(roleModel, attributes);
 });
 
