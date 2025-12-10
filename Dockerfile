@@ -19,7 +19,7 @@ FROM quay.io/keycloak/keycloak:22.0 as builder
 USER root
 ENV KC_METRICS_ENABLED=true
 ENV KC_FEATURES=scripts
-ENV KC_DB=postgres
+ENV KC_DB=mariadb
 ENV KC_HTTP_RELATIVE_PATH=/auth
 
 ENV JBOSS_HOME /opt/keycloak
@@ -74,8 +74,8 @@ RUN keytool -genkeypair -storepass password -storetype PKCS12 -keyalg RSA -keysi
 ENV KEYCLOAK_ADMIN=admin
 ENV KEYCLOAK_ADMIN_PASSWORD=change_me
 
-# change these values to point to a running postgres instance
-ENV KC_DB_URL=postgres
+# change these values to point to a running mariadb instance
+ENV KC_DB_URL=mariadb
 ENV KC_DB_USERNAME=keycloak
 ENV KC_DB_PASSWORD=change_me
 ENV KC_FEATURES=scripts
