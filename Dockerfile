@@ -14,7 +14,7 @@ FROM registry.access.redhat.com/ubi9 AS packageprovider
 RUN mkdir -p /mnt/rootfs
 RUN dnf install --installroot /mnt/rootfs vim wget iputils curl nmap-ncat net-tools --releasever 9 --setopt install_weak_deps=false --nodocs -y; dnf --installroot /mnt/rootfs clean all
 
-FROM quay.io/keycloak/keycloak:22.0 as builder
+FROM quay.io/keycloak/keycloak:26.4 as builder
 
 USER root
 ENV KC_METRICS_ENABLED=true
@@ -23,7 +23,7 @@ ENV KC_DB=mariadb
 ENV KC_HTTP_RELATIVE_PATH=/auth
 
 ENV JBOSS_HOME /opt/keycloak
-ENV PROVIDERS_VERSION 22.0.3.rsp
+ENV PROVIDERS_VERSION 26.4.0.rsp
 ENV PROVIDERS_TMP /tmp/keycloak-providers
 ENV MAVEN_CENTRAL_URL https://repo1.maven.org/maven2
 
@@ -31,9 +31,9 @@ COPY --from=zipper /result/ /opt/keycloak/providers/
 
 RUN mkdir -p $PROVIDERS_TMP
 ADD $MAVEN_CENTRAL_URL/ru/playa/keycloak/keycloak-russian-providers/$PROVIDERS_VERSION/keycloak-russian-providers-$PROVIDERS_VERSION.jar $PROVIDERS_TMP
-ADD https://github.com/wadahiro/keycloak-discord/releases/download/v0.5.0/keycloak-discord-0.5.0.jar $PROVIDERS_TMP
+ADD https://github.com/wadahiro/keycloak-discord/releases/download/v0.6.1/keycloak-discord-0.6.1.jar $PROVIDERS_TMP
 RUN cp $PROVIDERS_TMP/keycloak-russian-providers-$PROVIDERS_VERSION.jar $JBOSS_HOME/providers
-RUN cp $PROVIDERS_TMP/keycloak-discord-0.5.0.jar $JBOSS_HOME/providers
+RUN cp $PROVIDERS_TMP/keycloak-discord-0.6.1.jar $JBOSS_HOME/providers
 RUN chmod -R a+r $JBOSS_HOME
 RUN rm -rf $PROVIDERS_TMP
 
@@ -42,7 +42,7 @@ ENV KC_CACHE_CONFIG_FILE=cache-ispn-jdbc-ping.xml
 
 RUN /opt/keycloak/bin/kc.sh build --features=scripts --cache-config-file=cache-ispn-jdbc-ping.xml
 
-FROM quay.io/keycloak/keycloak:22.0
+FROM quay.io/keycloak/keycloak:26.4
 COPY --from=packageprovider /mnt/rootfs /
 USER root
 
@@ -50,14 +50,14 @@ COPY --from=builder /opt/keycloak/lib/quarkus/ /opt/keycloak/lib/quarkus/
 COPY --from=zipper /result/ /opt/keycloak/providers/
 
 ENV JBOSS_HOME /opt/keycloak
-ENV PROVIDERS_VERSION 22.0.3.rsp
+ENV PROVIDERS_VERSION 26.4.0.rsp
 ENV PROVIDERS_TMP /tmp/keycloak-providers
 ENV MAVEN_CENTRAL_URL https://repo1.maven.org/maven2
 RUN mkdir -p $PROVIDERS_TMP
 ADD $MAVEN_CENTRAL_URL/ru/playa/keycloak/keycloak-russian-providers/$PROVIDERS_VERSION/keycloak-russian-providers-$PROVIDERS_VERSION.jar $PROVIDERS_TMP
-ADD https://github.com/wadahiro/keycloak-discord/releases/download/v0.5.0/keycloak-discord-0.5.0.jar $PROVIDERS_TMP
+ADD https://github.com/wadahiro/keycloak-discord/releases/download/v0.6.1/keycloak-discord-0.6.1.jar $PROVIDERS_TMP
 RUN cp $PROVIDERS_TMP/keycloak-russian-providers-$PROVIDERS_VERSION.jar $JBOSS_HOME/providers
-RUN cp $PROVIDERS_TMP/keycloak-discord-0.5.0.jar $JBOSS_HOME/providers
+RUN cp $PROVIDERS_TMP/keycloak-discord-0.6.1.jar $JBOSS_HOME/providers
 RUN chmod -R a+r $JBOSS_HOME
 RUN rm -rf $PROVIDERS_TMP
 
