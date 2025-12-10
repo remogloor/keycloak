@@ -75,6 +75,7 @@ ENV KEYCLOAK_ADMIN=admin
 ENV KEYCLOAK_ADMIN_PASSWORD=change_me
 
 # change these values to point to a running mariadb instance
+ENV KC_DB=mariadb
 ENV KC_DB_URL=mariadb
 ENV KC_DB_USERNAME=keycloak
 ENV KC_DB_PASSWORD=change_me
