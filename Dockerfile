@@ -40,7 +40,7 @@ RUN rm -rf $PROVIDERS_TMP
 COPY cache-ispn-jdbc-ping.xml /opt/keycloak/conf/cache-ispn-jdbc-ping.xml
 ENV KC_CACHE_CONFIG_FILE=cache-ispn-jdbc-ping.xml
 
-RUN /opt/keycloak/bin/kc.sh build --features=scripts --cache-config-file=cache-ispn-jdbc-ping.xml
+RUN /opt/keycloak/bin/kc.sh build --features=scripts
 
 FROM quay.io/keycloak/keycloak:26.4
 COPY --from=packageprovider /mnt/rootfs /
